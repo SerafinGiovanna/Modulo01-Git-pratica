@@ -1,0 +1,6 @@
+Lab 13 — Git Flow x Trunk Based
+
+No respostas.md, compare em suas palavras: no Git Flow (com develop, branches de release/* e hotfix/* separadas da main), o que teria que acontecer pra uma correção urgente chegar em produção rápido? E no Trunk Based Development (todo mundo commitando direto numa branch principal única, com branches de vida curtíssima)? Qual seria mais adequado pra um projeto pequeno como o da lanchonete, e por quê?
+
+No Git Flow, a correção passa por uma hotfix/* antes de chegar à main. No Trunk Based, ela é integrada rapidamente à branch principal.
+Para a lanchonete, eu escolheria o Trunk Based, por ser mais simples e rápido.
