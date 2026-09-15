@@ -20,7 +20,7 @@ Neste repositório vai conter as Lab's e o arquivo de resposta.md (contendo a pa
 - [ Lab - 12 Pull Request e Code Review.](#Pull-Request-e-Code-Review)
 - [ Lab - 13 Git Flow x Trunk Based.](#Git-Flow-x-Trunk-Based)
 - [ Lab - 14 Cherry-pick.](#Cherry-pick)
-- [ Lab - 15 Bisect].(#bisect)
+- [ Lab - 15 Bisect.](#bisect)
 - [ Lab - 16 Worktree.](#worktree)
 - [ Lab - 17 Hooks.](#hooks)
 - [ Lab - 18 Git + CI/CD.](#Git-+-CI/CD)
