@@ -1,0 +1,5 @@
+Lab 15 — Bisect
+
+Critério de aceite: você identificou corretamente o commit que introduziu o bug, documentando o hash no respostas.md.
+
+Hash do commit: 906345a
