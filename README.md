@@ -27,7 +27,7 @@ Neste repositório vai conter as Lab's e o arquivo de resposta.md (contendo a pa
 
 
 # Lab's
-## Nível Básico 
+# Nível Básico 
 ***
 
 ## Fundamentos e primeiros commits.
@@ -290,7 +290,7 @@ Um "bug" foi introduzido em algum lugar dos últimos commits — pra simular, vo
 
 **git bisect good <hash-bem-antigo> (um commit de que você tem certeza que não tinha o bug)**
 
-**O Git vai te colocar automaticamente no meio do intervalo — abra cardapio.txt a cada passo e responda:**
+O Git vai te colocar automaticamente no meio do intervalo — abra cardapio.txt a cada passo e responda:
 
 **git bisect good     (se esse commit NÃO tem o bug)**
 
@@ -303,3 +303,36 @@ até o Git apontar exatamente o commit culpado. Encerre com:
 **Critério de aceite:** 
 você identificou corretamente o commit que introduziu o bug, documentando o hash no respostas.md.
 ***
+## Worktree.
+Você precisa trabalhar em duas branches ao mesmo tempo sem ficar trocando (switch) o tempo todo e sem clonar o repositório de novo numa pasta separada manualmente:
+
+**git worktree add ../lanchonete-hotfix main**
+
+Isso cria uma **pasta nova** (../lanchonete-hotfix, do lado de lanchonete-beira-rio) com a branch main já "fora", trabalhável de forma independente — mudanças feitas lá não interferem no que está aberto na pasta original. Faça uma pequena edição nessa pasta nova, commit, depois volte pra pasta original e confirme que o commit aparece no histórico compartilhado (é o mesmo repositório .git, só duas "visões" dele abertas ao mesmo tempo). Remova a worktree quando terminar:
+
+**git worktree remove ../lanchonete-hotfix**
+***
+## Hooks.
+Configure um hook local que bloqueia commits com um TODO esquecido no arquivo. Dentro de .git/hooks/, crie (ou edite, se já existir um exemplo) o arquivo pre-commit (sem extensão) com este conteúdo (pode criar/editar pelo Bloco de Notas, salvando sem extensão .txt):
+
+**#!/bin/sh
+if git diff --cached | grep -q "TODO"; then
+  echo "Commit bloqueado: existe um TODO no que você está tentando commitar."
+  exit 1
+fi**
+
+Adicione a palavra TODO em algum ponto do cardapio.txt, dê git add e tente commitar — o hook deve bloquear. Remova o TODO e tente de novo — deve passar normalmente.
+
+[ATENÇÃO] Hooks ficam dentro de .git/hooks/, que **não é versionado** por padrão (a pasta .git inteira nunca vai pro GitHub) — cada pessoa que clona o repositório precisaria configurar o hook de novo manualmente, ou o time usa uma ferramenta como Husky pra automatizar isso (fora do escopo deste laboratório, mas vale saber que existe).
+
+**Critério de aceite:** você documentou, no respostas.md, a tentativa de commit bloqueada (cole a mensagem de erro) e a tentativa seguinte, já sem o TODO, passando normalmente.
+***
+## Git + CI/CD.
+Você já viu, na prática, um pipeline de CI/CD real disparado por push: o próprio site desta trilha (trilha-jovem-aprendiz) publica automaticamente no GitHub Pages a cada git push na branch main, através do workflow .github/workflows/deploy.yml. Abra esse arquivo (ou peça o link do repositório da trilha pro instrutor) e identifique: qual evento dispara o workflow (on: push: branches: [main]), e quais passos ele executa antes de publicar.
+
+No respostas.md, explique em suas palavras como a tag v1.0.0 que você criou no Lab 10 poderia, num projeto real, disparar um pipeline **diferente** do pipeline de push normal — por exemplo, um que só publica uma nova versão "oficial" quando uma tag no formato v*.*.* é criada, em vez de publicar a cada commit.
+
+**Critério de aceite:** 
+explicação escrita, referenciando a diferença entre o gatilho on: push (a cada commit) e um gatilho baseado em tags (só em lançamentos oficiais).
+
+
